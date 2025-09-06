@@ -1,21 +1,22 @@
 name: Scheduled Health Check
 
 on:
-  workflow_dispatch:    # manual run
-  schedule:             # scheduled run
+  workflow_dispatch:
+  schedule:
     - cron: "*/5 * * * *"
   push:
     branches:
       - main
 
 permissions:
-  contents: read
+  contents: write   # <- add this
 
 jobs:
   health_check_job:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Run Shell Script
-        id: shell_script_run
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: true  # <- important to allow push
+      - name: Run health check
         run: bash ./health-check.sh
