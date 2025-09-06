@@ -6,9 +6,9 @@ on:
     - cron: "*/5 * * * *"
   push:
     branches:
-      - main  
+      - main
 
-  jobs:
+jobs:
   health_check_job:
     runs-on: ubuntu-latest
     name: Check all sites
