@@ -1,12 +1,7 @@
 # In the original repository we'll just print the result of status checks,
 # without committing. This avoids generating several commits that would make
 # later upstream merges messy for anyone who forked us.
-commit=true
 origin=$(git remote get-url origin)
-if [[ $origin == *statsig-io/statuspage* ]]
-then
-  commit=false
-fi
 
 KEYSARRAY=()
 URLSARRAY=()
@@ -46,21 +41,14 @@ do
     sleep 5
   done
   dateTime=$(date +'%Y-%m-%d %H:%M')
-  if [[ $commit == true ]]
-  then
-    echo $dateTime, $result >> "logs/${key}_report.log"
-    # By default we keep 2000 last log entries.  Feel free to modify this to meet your needs.
-    echo "$(tail -2000 logs/${key}_report.log)" > "logs/${key}_report.log"
-  else
-    echo "    $dateTime, $result"
-  fi
+
+  echo $dateTime, $result >> "logs/${key}_report.log"
+  # By default we keep 2000 last log entries.  Feel free to modify this to meet your needs.
+  echo "$(tail -2000 logs/${key}_report.log)" > "logs/${key}_report.log"
 done
 
-if [[ $commit == true ]]
-then
-  git config --global user.name 'Logan Foster'
-  git config --global user.email 'lrfoster03@outlook.com'
-  git add -A --force logs/
-  git commit -am '[Automated] Update Health Check Logs'
-  git push
-fi
+git config --global user.name 'Logan Foster'
+git config --global user.email 'lrfoster03@outlook.com'
+git add -A --force logs/
+git commit -am '[Automated] Update Health Check Logs'
+git push
