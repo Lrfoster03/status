@@ -1,20 +1,11 @@
-name: Scheduled Health Check
+name: Health Check
 
-# Controls when the action will run.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "*/5 * * * *"
-  push:
-    branches:
-      - main
 
 jobs:
-  health_check_job:
+  echo-hello-world:
     runs-on: ubuntu-latest
-    name: Check all sites
     steps:
-      - uses: actions/checkout@v2
-      - name: Run Shell Script
-        id: shell_script_run
-        run: bash ./health-check.sh
+      - name: Echo Hello World
+        run: echo "hello world"
