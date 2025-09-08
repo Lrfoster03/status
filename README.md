@@ -6,7 +6,7 @@ We tried various Status Pages out there, and built this as a fun little hobby pr
 
 ## Demo
 
-- https://status.statsig.com
+- https://logoas.xyz/status
 
 ## Setup instructions
 
