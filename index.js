@@ -241,12 +241,16 @@ async function genAllReports() {
   const configText = await response.text();
   const configLines = configText.split("\n");
   for (let ii = 0; ii < configLines.length; ii++) {
-    const configLine = configLines[ii];
-    const [key, url] = configLine.split("=");
-    if (!key || !url) {
+    const configLine = configLines[ii].trim();
+    if (!configLine || configLine.startsWith("#")) {
       continue;
     }
+    const [key, rawConfig] = configLine.split("=");
+    if (!key || !rawConfig) {
+      continue;
+    }
+    const pageUrl = rawConfig.split("|")[0];
 
-    await genReportLog(document.getElementById("reports"), key, url);
+    await genReportLog(document.getElementById("reports"), key, pageUrl);
   }
 }
