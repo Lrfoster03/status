@@ -5,7 +5,7 @@ URLSARRAY=()
 
 urlsConfig="./urls.cfg"
 echo "Reading $urlsConfig"
-while IFS='=' read -r key value; do
+while IFS='=' read -r key value || [[ -n "$key" ]]; do
   [[ -z "$key" || "$key" =~ ^# ]] && continue
 
   KEYSARRAY+=("$key")
